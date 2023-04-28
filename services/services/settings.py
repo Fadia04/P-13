@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 import os
 
-import environ
+import environ #(python -m pip install django environ)
 env = environ.Env()
 environ.Env.read_env()
 
@@ -42,8 +42,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "offers",
-    "requests",
+    "offers",   
     "users",
     "favoris",
 ]
@@ -150,6 +149,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
+LOGIN_URL = "signin"
+LOGIN_REDIRECT_URL = "/signin/"
 # fotoblog/settings.py
 AUTH_USER_MODEL = 'users.User'

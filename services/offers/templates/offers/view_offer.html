@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+    <header id="head">
+    <div class="container">
+    <h2>DETAIL DE L'OFFRE</h2>
+    </header>
+    
+    <h3>Catégorie: {{ offer.category }}</h3> 
+    <h3>{{ offer.title }}</h3>
+    <p><a href="{% url 'modifie_offer' offer.id %}">Modifier l'annoce</a></p>
+        
+    <p>{{ offer.description }}</p>
+
+
+
+{% endblock content %}

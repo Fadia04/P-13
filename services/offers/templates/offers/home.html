@@ -1,14 +1,30 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %} Home {% endblock title %}
-
+{% block header %}
+<header id="head">
+    <div class="container">
+        <div class="row">
+            <h1 class="lead">TROC DE SERVICES</h1>
+            <p class="tagline">PARTAGEZ, ECONOMISEZ, POSITIVEZ <!--<a href="http://www.gettemplate.com/?utm_source=progressus&amp;utm_medium=template&amp;utm_campaign=progressus"> </a>--></p>
+            <p><a class="btn btn-default btn-lg" role="button" href="{% url 'view_offers' %}">CONSULTER LES OFFRES</a>
+                
+                
+                <a class="btn btn-action btn-lg" role="button">CONSULTER LES DEMANDES</a></p>
+        </div>
+    </div>
+</header>
+{% endblock header %}
 {% block content %}
+
+
+
 <div class="container text-center">
     <br> <br>
-    <h2 class="thin">The best place to tell people why they are here</h2>
+    <h2 class="thin">texte</h2>
     <p class="text-muted">
-        The difference between involvement and commitment is like an eggs-and-ham breakfast:<br> 
-        the chicken was involved; the pig was committed.
+        'texte?'
     </p>
 </div>
 <!-- /Intro-->

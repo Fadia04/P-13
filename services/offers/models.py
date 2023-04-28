@@ -21,7 +21,7 @@ class Offer(models.Model):
         Category, on_delete=models.CASCADE, related_name="category", default=False
     )
     user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="user"
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="offers"
     )
     def __str__(self):
         return f"{self.title} {self.category.name} {self.description}"   
@@ -34,7 +34,17 @@ class Comment(models.Model):
     comment_body = models.TextField()
     date_added = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="user"
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="comments"
     )
     def __str__(self):
         return f"{self.offer.title} {self.user.username} {self.commenter_name}"
+
+class Request(models.Model):
+    title = models.CharField(max_length=300)
+    description = models.TextField()
+    date_added = models.DateTimeField(auto_now_add=True)
+    image = models.URLField(null=True)
+    available = models.BooleanField(default=True)
+    
+    def __str__(self):
+        return f"{self.title} {self.description}"

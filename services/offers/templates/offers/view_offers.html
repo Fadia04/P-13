@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<header id="head">
+    <div class="container">
+
+    <h2>LISTE DES OFFRES</h2>
+</header>
+    <body>
+    <div class="grid-container">
+        {% for offer in offers %}
+            <div class="post">
+                <a href="{% url 'view_offer' offer.id %}">
+                    <h4>Titre : {{ offer.title }}</h4>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+    <body>
+{% endblock content%}

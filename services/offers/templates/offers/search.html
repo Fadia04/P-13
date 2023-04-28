@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!--<body>-->
+    <header id="head">
+        <div class="container">
+                <center>
+                    {% if query %}
+                      <h1>Voici les annonces que vous avez recherchées pour: {{query}}</h1>
+                    {% else %}
+                        <h2> Veuillez retaper votre demande</h2>
+                    {% endif %}
+                </center>               
+    
+        </div>
+    </div>
+</header>
+
+<body>
+    <section class="page-section" id="résultats">            
+        <div class="container py-1 bg-light">
+            <div class="row">
+                {% for offer in offers %}
+                <div class="col-md-4 col-sm-6 text-center">
+                    <div class="card-mb-4 shadow-sm">                    
+                    
+                    <a href="/">
+                        <h4>{{ offer.title }}</h4>
+                    </a>                    
+                    
+                       
+                    </div>                           
+                </div>
+                {% endfor %}
+            </div>
+        
+        </div>  
+                     
+    </section>
+<body/>
+{% endblock %}

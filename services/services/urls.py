@@ -17,13 +17,20 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
 import users.views
+import offers.views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", TemplateView.as_view(template_name="offers/home.html"), name="home",
          ),
-    #path("users/", include("django.contrib.auth.urls")),
+    path("users/", include("django.contrib.auth.urls")),
     path("signin/", users.views.login_page, name="signin"),
     path("logout/", users.views.logout_user, name="logout"),
     path("signup/", users.views.signup_page, name="signup"),
+    path("create_offer/", offers.views.offer_creation, name="create-offer"),
+    path('view_offer/<int:offer_id>', offers.views.view_offer, name='view_offer'),
+    path('view_offers/', offers.views.view_offers, name='view_offers'),
+    path('search/', offers.views.search, name='search'),
+    path('modifie_offer/<int:offer_id>', offers.views.modifie_offer, name='modifie_offer'),
 ]
+

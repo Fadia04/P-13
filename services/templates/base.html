@@ -42,21 +42,38 @@
 			<div class="navbar-header">
 				<!-- Button for smallest screens -->
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-				<a class="navbar-brand" href="home.html"><img src="{% static 'assets/images/logo.png' %}" alt="Progressus HTML5 template"></a>
+				<a class="navbar-brand" href="home.html"><img src="{% static 'assets/images/logo.png' %}" alt=" HTML5 template"></a>
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav pull-right">
 					<li class="active"><a href="#">Home</a></li>
-					<li><a href="about.html">About</a></li>
+					
+					<li><a href="{% url 'search' %}">RECHERCHE</a></li>
+					<form class="d-flex" method=POST action="{% url 'search' %}">
+						{% csrf_token %}
+						<input class="form-control me-2"
+						type="search" placeholder="Chercher" 
+						aria-label="Chercher" name="query">
+						<!--<button class="icon"><i class="fa fa-search"></i></button>-->
+						<button id="result-button" class="btn btn-outline-secondary" type="submit">RECHERCHE</button>
+					</form>
+
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">OFFRES / DEMANDES <b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li><a href="sidebar-left.html">Créer une offre</a></li>
-							<li class="active"><a href="sidebar-right.html">Créer une demande</a></li>
+							<li><a href="{% url 'create-offer' %}">Créer une offre</a></li>
+							<li class="active"><a href="create-request.html">Créer une demande</a></li>
 						</ul>
 					</li>
 					<li><a href="contact.html">Contact</a></li>
-					<li><a class="btn" href="{% url 'signin' %}">SIGN IN / SIGN UP</a></li>
+					<!--<li><a class="btn" href="{% url 'signin' %}">SIGN IN / SIGN UP</a></li>-->
+				
+						{% if user.is_authenticated %}
+                            <li><a class="btn" href="{% url 'logout' %}">DECONNEXION</a></li>
+                                    
+                        {% else %}
+							<li><a class="btn" href="{% url 'signin' %}">SIGN IN / SIGN UP</a></li>
+                        {% endif %}     
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>
@@ -67,15 +84,7 @@
 
 	<!-- Header -->
     {% block header %}
-    <header id="head">
-		<div class="container">
-			<div class="row">
-				<h1 class="lead">TROC DE SERVICES</h1>
-				<p class="tagline">PARTAGEZ, ECONOMISEZ, POSITIVEZ <a href="http://www.gettemplate.com/?utm_source=progressus&amp;utm_medium=template&amp;utm_campaign=progressus">GetTemplate</a></p>
-				<p><a class="btn btn-default btn-lg" role="button">CONSULTER LES OFFRES</a> <a class="btn btn-action btn-lg" role="button">CONSULTER LES DEMANDES</a></p>
-			</div>
-		</div>
-	</header>
+    
     {% endblock header %}
 
 	<!-- /Header -->

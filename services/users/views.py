@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required
 def logout_user(request):
     """View to allow a loged user to logout"""
     logout(request)
-    return redirect("login")
+    return redirect("signin")
 
 
 def login_page(request):
@@ -28,7 +28,7 @@ def login_page(request):
                 login(request, user)
                 return redirect("home")
             else:
-                message = "Identifiants invalides."
+                message = "Identifiants invalides, veuillez recommencer."
     return render(
         request, "users/signin.html", context={"form": form, "message": message}
     )
@@ -43,5 +43,5 @@ def signup_page(request):
             user = form.save()
             # auto-login user
             login(request, user)
-            return redirect(settings.LOGIN_REDIRECT_URL)
+            return redirect('home')
     return render(request, "users/signup.html", context={"form": form})

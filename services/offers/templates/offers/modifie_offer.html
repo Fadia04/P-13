@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<header id="head">
+    <div class="container">
+    <h2>Modifier une annonce</h2>
+</header>
+<body>
+    <form method="post">
+        {{ modifie_form.as_p }}
+        {% csrf_token %}
+        <button type="submit" >Sauvegarder</button>
+    </form>
+
+    <hr>
+    <h3>Supprimer une annonce</h3>
+    <form method="post">
+        {{ delete_form }}
+        {% csrf_token %}
+        <button type="submit" >Supprimer</button>
+    </form>
+</body>
+{% endblock content %}

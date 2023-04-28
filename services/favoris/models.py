@@ -9,7 +9,7 @@ class Favorite(models.Model):
         Offer, null=True, on_delete=models.SET_NULL, related_name="favorite_offer"
     )
     user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="user"
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="favorites"
     )
  
     def __str__(self):
