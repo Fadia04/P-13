@@ -5,11 +5,54 @@
     <h2>DETAIL DE L'OFFRE</h2>
     </header>
     
+    <body>
     <h3>Catégorie: {{ offer.category }}</h3> 
     <h3>{{ offer.title }}</h3>
-    <p><a href="{% url 'modifie_offer' offer.id %}">Modifier l'annoce</a></p>
-        
     <p>{{ offer.description }}</p>
+    {% if perms.offers.modifie_offer %}
+    <p><a href="{% url 'modifie_offer' offer.id %}">Modifier l'annonce</a></p>
+    {%endif %}% 
+    
+
+    <div class="container">
+        <h3>Messages</h3>
+
+        <a class="btn btn-outline-primary" button id="comment-button" href="{% url 'add-comment' offer.id %}" type="submit">Ajouter</button></a>
+                 
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                
+                <th scope="col">Nom utilisateur</th>
+                <th scope="col">Message</th>
+                <th scope="col">Date</th>  
+                <th scope="col">supprimer</th>                      
+            </tr>
+            </thead>
+            <tbody>
+            {% if not offer.comments.all %}
+                <p>Aucun message ajouté</p>
+            {% else %}
+                {% for comment in offer.comments.all %}
+                <tr> 
+                    
+                    <td scope="row">{{ comment.commenter_name }}</td>
+                    <td scope="row">{{ comment.comment_body }}</td>
+                    <td scope="row">{{ comment.date_added }}</td>
+                    {% if perms.offers.modifie_offer %}
+                    <td><a class="btn btn-danger"href="{% url 'delete-comment' comment.id %}"> Supprimer</a></td>                  
+                    {% endif %}
+                </tr>                                                            
+                {% endfor %}
+            {% endif %}
+                </tr>
+                </tbody>
+        </table>                  
+    </div>
+    </center>
+</body>
+
+    
 
 
 

@@ -7,9 +7,9 @@
         <div class="container">
                 <center>
                     {% if query %}
-                      <h1>Voici les annonces que vous avez recherchées pour: {{query}}</h1>
+                        <h1>Voici les annonces que vous avez recherchées pour: {{query}}</h1>
                     {% else %}
-                        <h2> Veuillez retaper votre demande</h2>
+                        <h1> Nous n'avons pas trouvé l'annonce recherchée, veuillez retaper votre demande</h1>
                     {% endif %}
                 </center>               
     
@@ -25,18 +25,27 @@
                 <div class="col-md-4 col-sm-6 text-center">
                     <div class="card-mb-4 shadow-sm">                    
                     
-                    <a href="/">
+                    <a href="{% url 'view_offer' offer.id %}">
                         <h4>{{ offer.title }}</h4>
-                    </a>                    
-                    
-                       
+                    </a>                         
                     </div>                           
                 </div>
                 {% endfor %}
-            </div>
+                <div class="container py-1 bg-light">
+                    <div class="row">
+                {% for category in categories %}
+                <div class="col-md-4 col-sm-6 text-center">
+                    <div class="card-mb-4 shadow-sm">                    
+                    
+                    <a href="{% url 'view_offers' %}">
+                        <h4>{{ offer.title }}</h4>
+                    </a> 
+                    </div>
+                </div>
+                {% endfor %}
         
         </div>  
-                     
+    </div>             
     </section>
 <body/>
 {% endblock %}

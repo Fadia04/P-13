@@ -32,5 +32,10 @@ urlpatterns = [
     path('view_offers/', offers.views.view_offers, name='view_offers'),
     path('search/', offers.views.search, name='search'),
     path('modifie_offer/<int:offer_id>', offers.views.modifie_offer, name='modifie_offer'),
+    path("offers/<int:id>/add-comment", offers.views.add_comment, name="add-comment"),
+    path("delete-comment/<int:id>",offers.views.delete_comment,name="delete-comment",),
+    path('view_categories/', offers.views.view_categories, name='view_categories'),
+    path('view_category/<int:category_id>', offers.views.view_category, name='view_category'),
+    path('search_categories/', offers.views.search_categories, name='search_categories'),
 ]
 

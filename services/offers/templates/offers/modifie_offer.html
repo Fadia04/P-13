@@ -14,10 +14,14 @@
 
     <hr>
     <h3>Supprimer une annonce</h3>
+    
     <form method="post">
         {{ delete_form }}
         {% csrf_token %}
+        
         <button type="submit" >Supprimer</button>
+        
     </form>
+    
 </body>
 {% endblock content %}

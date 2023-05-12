@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from . import forms
 from django.shortcuts import get_object_or_404
-from offers.models import Offer, Category
-from offers.forms import OfferForm
+from datetime import datetime
+from offers.models import Offer, Category, Comment
+from offers.forms import OfferForm, CommentForm
 # Create your views here.
+
 @login_required
 def offer_creation(request):
     offer_form = forms.OfferForm()
@@ -24,6 +26,7 @@ def offer_creation(request):
     return render(request, 'offers/create_offer.html', context=context)
 
 @login_required
+@permission_required('offers.modifie_offer', raise_exception=True)
 def modifie_offer(request, offer_id):
     offer = get_object_or_404(Offer, id=offer_id)
     modifie_form = forms.OfferForm(instance=offer)
@@ -45,13 +48,13 @@ def modifie_offer(request, offer_id):
 }
     return render(request, 'offers/modifie_offer.html', context=context)
 
-@login_required
+
 def view_offer(request, offer_id):
     offer = get_object_or_404(Offer, id=offer_id)
     #offers = Offer.objects.all(id=offer_id)
     return render(request, 'offers/view_offer.html', {'offer': offer})
 
-@login_required
+
 def view_offers(request):
     offers = Offer.objects.all()
     
@@ -61,16 +64,93 @@ def view_offers(request):
 def search(request):
     if request.method == "POST":
         query = request.POST["query"]
-        offers = Offer.objects.filter(title__icontains=query).order_by("date_added")[
+        offers = Offer.objects.filter(description__icontains=query).order_by("date_added")[
             :50
         ]
-        print(offers)
         
-        
-
         return render(
             request, "offers/search.html", {"query": query, "offers": offers}
         )
     else:
-        message = "Nous n'avons pas trouvé l'annonce recherchée, veuillez retaper votre demande"
+        message = ""
+        return render(request, "offers/search.html", {"message": message})
+"""
+def search_categories(request):
+    if request.method == "POST":
+        query = request.POST["query"]
+        categories = Category.objects.filter(name__icontains=query)
+     
+        #cat = Category.objects.filter(offer__in=offers)
+        #all= Offer.objects.filter()
+        
+        return render(
+            request, "offers/search.html", {"query": query, "categories": categories}
+        )
+    else:
+        message = ""
+        return render(request, "offers/search.html", {"message": message})
+"""
+@login_required
+
+def add_comment(request, id):
+    """View allowed to add a user's comment in add-comment page and to save it """
+    offer = Offer.objects.get(id=id)
+    form = CommentForm(instance=offer)
+    if request.method == "POST":
+        form = CommentForm(request.POST, instance=offer)
+        if form.is_valid():
+            name = request.user.username
+            body = form.cleaned_data["comment_body"]
+            comments = Comment(
+                offer=offer,
+                commenter_name=name,
+                comment_body=body,
+                date_added=datetime.now(),
+                user = request.user,)
+            comments.save()
+            return redirect("view_offer", offer_id=id)
+        else:
+            print("form is not valid")
+    else:
+        form = CommentForm
+    context = {"form": form}
+    return render(request, "offers/add_comment.html", context)
+
+@login_required
+@permission_required('offers.delete_comment', raise_exception=True)
+def delete_comment(request, id):
+    """View to delete a comment by it's owner"""
+    comment = Comment.objects.get(pk=id)
+    offer_id= comment.offer_id
+    comment.delete()
+    return redirect("view_offer", offer_id = offer_id)
+
+def view_category(request, category_id):
+    category = get_object_or_404(Category, id=category_id)
+    #offers = Offer.objects.all(id=offer_id)
+    return render(request, 'offers/view_category.html', {'category': category})
+
+
+def view_categories(request):
+    categories = Category.objects.all()
+    
+    return render(request,'offers/view_categories.html', {'categories': categories})
+
+def search_categories(request):
+    if request.method == "POST":
+        query = request.POST["query"]
+        offers = Offer.objects.filter(description__icontains=query).order_by("date_added")
+        
+        categories = Category.objects.filter(offer__in=offers)
+        all = [category.category_id for category in categories]
+        alloffers = Offer.objects.filter(id__in=all)
+     
+        #cat = Category.objects.filter(offer__in=offers)
+        #all= Offer.objects.filter()
+        
+        return render(
+            request, "offers/search.html", {"query": query, "alloffers": alloffers}
+        )
+    else:
+        message = ""
         return render(request, "offers/search.html", {"message": message})

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<header id="head">
+    <div class="container">
+
+    <h2>LISTE DES CATEGORIES</h2>
+</header>
+    <body>
+    <div class="grid-container">
+        {% for category in categories %}
+            <div class="post">
+                
+                <h4>Titre : {{ offer.title }}</h4>
+                
+            </div>
+        {% endfor %}
+    </div>
+    <body>
+{% endblock content%}
