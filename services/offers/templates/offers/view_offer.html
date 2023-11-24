@@ -6,48 +6,85 @@
     </header>
     
     <body>
-    <h3>Catégorie: {{ offer.category }}</h3> 
-    <h3>{{ offer.title }}</h3>
-    <p>{{ offer.description }}</p>
-    {% if perms.offers.modifie_offer %}
-    <p><a href="{% url 'modifie_offer' offer.id %}">Modifier l'annonce</a></p>
-    {%endif %}% 
+    <div class="container m-2">
+    <ul>
+     
+    <h4>Catégorie : {{ offer.category }}</h4>
+    <h4>Type : {{ offer.type }}</h4>
+    <h4>Publiée par : {{ offer.user }}</h4>
     
+    <table border="3" Cellspacing="1" Cellpadding="2">
+    
+        <thead>
+        <tr> 
+            <th colspan="2">{{ offer.title }}</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr>   
+        <td>{{ offer.description }}</td>  
+            </tr>
+        
+        </tbody> 
+    </table>
+    {% if request.user == offer.user %}
+    <p><a href="{% url 'modifie_offer' offer.id %}">Modifier l'annonce</a></p>
+    {% endif %}
+
+    </ul>
+    </div>
+
 
     <div class="container">
-        <h3>Messages</h3>
-
-        <a class="btn btn-outline-primary" button id="comment-button" href="{% url 'add-comment' offer.id %}" type="submit">Ajouter</button></a>
+        <h3>Messages ({{ num_comments }})</h3>
                  
-        <table class="table table-bordered">
+        <!--<table class="table table-bordered">-->
+        <table border="3" Cellspacing="1" Cellpadding="2">
             <thead>
-            <tr>
-                
+            <tr>                
                 <th scope="col">Nom utilisateur</th>
                 <th scope="col">Message</th>
-                <th scope="col">Date</th>  
-                <th scope="col">supprimer</th>                      
+                <th scope="col">Date</th> 
+                <th scope="col">Supprimer</th> 
+                <th scope="col">Modifier</th>
+                <th scope="col">Répondre</th>
+                
+                
+                                   
             </tr>
             </thead>
             <tbody>
             {% if not offer.comments.all %}
                 <p>Aucun message ajouté</p>
             {% else %}
+            <h5> Utilisateur connecté: {{ request.user }}</h5>
                 {% for comment in offer.comments.all %}
                 <tr> 
+                    {% if request.user.username == comment.commenter_name or comment.commenter_name == offer.user.username or request.user.username == offer.user.username %}                    
                     
                     <td scope="row">{{ comment.commenter_name }}</td>
                     <td scope="row">{{ comment.comment_body }}</td>
                     <td scope="row">{{ comment.date_added }}</td>
-                    {% if perms.offers.modifie_offer %}
-                    <td><a class="btn btn-danger"href="{% url 'delete-comment' comment.id %}"> Supprimer</a></td>                  
+
+                    {% endif %} 
+                    {% if request.user.username == comment.commenter_name or request.user == offer.user %}
+                    <td><a class="btn btn-danger"href="{% url 'delete-comment' comment.id %}">Supprimer</a></td> 
+                    {% endif %}
+                    {% if request.user.username == comment.commenter_name %}
+                    <td><a class="btn btn-primary"href="{% url 'modifie_comment' comment.id %}">Modifier</a></td> 
+                    {% endif %} 
+                    {% if comment.commenter_name == offer.user.username and comment.commenter_name != request.user.username or offer.user.username == request.user.username and comment.commenter_name != request.user.username %}                  
+                    <td><a class="btn btn-primary"href="{% url 'add-comment' offer.id %}">Répondre</a></td>
                     {% endif %}
                 </tr>                                                            
                 {% endfor %}
             {% endif %}
-                </tr>
-                </tbody>
-        </table>                  
+        </table> 
+            <p><a class="btn btn-success" button id="comment-button" href="{% url 'add-comment' offer.id %}"
+                type="submit">Ajouter vore message</button></a></p>
+                
+    </tbody>
+                         
     </div>
     </center>
 </body>

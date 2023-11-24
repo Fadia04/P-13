@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block content %}
+<header id="head">
+
+
+    <h2>LISTE DE MES COMMENTAIRES</h2>
+
+</header>
+
+<body>
+    <!--<div class="grid-container">-->
+
+        <table class="table table-bordered">
+            <thead>
+            <tr>                
+                <th scope="col">Mes commentaires</th>
+                <th scope="col">Annonce</th>
+                                                               
+            </tr>
+            </thead>
+
+    <div align=center>
+    
+        
+    <tbody>  
+        <h3> {{ user }}
+            {% for comment in mycomments %}
+            <tr>
+                <div class="post">
+                    <a href="{% url 'view_mycomments' %}">
+                        {% if request.user.username == comment.commenter_name %}                  
+                        <td scope="row">{{ comment.comment_body }}</td>
+                        <td scope="row">{{ comment.offer.title }} (Publiée par : {{ comment.offer.user }})</td>
+                        {% endif %}
+            
+                    </a>
+                    
+                </div>
+            </tr>
+            {% endfor %}
+            
+        </table> 
+    </tbody>  
+    </div>
+<body>
+{% endblock content %}

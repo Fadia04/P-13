@@ -9,17 +9,18 @@
     <form method="post">
         {{ modifie_form.as_p }}
         {% csrf_token %}
-        <button type="submit" >Sauvegarder</button>
+        <button type="submit">Sauvegarder</button>
     </form>
 
     <hr>
     <h3>Supprimer une annonce</h3>
     
     <form method="post">
-        {{ delete_form }}
+        {{ delete_form.as_p }}
         {% csrf_token %}
-        
-        <button type="submit" >Supprimer</button>
+
+         
+        <button type="submit">Supprimer</button>
         
     </form>
     

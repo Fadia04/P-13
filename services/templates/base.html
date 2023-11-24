@@ -42,27 +42,28 @@
 			<div class="navbar-header">
 				<!-- Button for smallest screens -->
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+				<!--sigle progressus-->
 				<a class="navbar-brand" href="home.html"><img src="{% static 'assets/images/logo.png' %}" alt=" HTML5 template"></a>
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav pull-right">
-					<li class="active"><a href="#">Home</a></li>
+					<li class="dropdown">
+						<a href="{% url 'home' %}">Home</a></li>
 					
-					<li><a href="{% url 'search' %}">RECHERCHE</a></li>
-					<form class="d-flex" method=POST action="{% url 'search' %}">
-						{% csrf_token %}
-						<input class="form-control me-2"
-						type="search" placeholder="Chercher" 
-						aria-label="Chercher" name="query">
-						<!--<button class="icon"><i class="fa fa-search"></i></button>-->
-						<button id="result-button" class="btn btn-outline-secondary" type="submit">RECHERCHE</button>
-					</form>
+					<!--<li><a href="{% url 'search' %}">RECHERCHE</a></li>-->
+					<li class="dropdown">
+						<a href="{% url 'search' %}" class="dropdown-toggle" data-toggle="dropdown">RECHERCHE <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li class="active"><a href="{% url 'search' %}">Recherche par mot clé</a></li>
+							<li class="active"><a href="{% url 'view_categories' %}">Recherche par catégorie</a></li>
+						</ul>
+					</li>
 
 					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">OFFRES / DEMANDES <b class="caret"></b></a>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">PUBLIER <b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li><a href="{% url 'create-offer' %}">Créer une offre</a></li>
-							<li class="active"><a href="create-request.html">Créer une demande</a></li>
+							<li class="active"><a href="{% url 'create-offer' %}">Créer une offre</a></li>
+							<li class="active"><a href="{% url 'create-request' %}">Créer une demande</a></li>
 						</ul>
 					</li>
 					<li><a href="contact.html">Contact</a></li>
@@ -73,8 +74,21 @@
                                     
                         {% else %}
 							<li><a class="btn" href="{% url 'signin' %}">SIGN IN / SIGN UP</a></li>
-                        {% endif %}     
+                        {% endif %} 
+						
+                        <li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">MES ANNONCES<b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li class="active"><a href="{% url 'view_myoffers' %}">Mes offres</a></li>
+								<li class="active"><a href="{% url 'view_myrequests' %}">Mes demandes</a></li>
+							</ul>
+						</li>
+
+						<li><a href="{% url 'view_mycomments' %} ">Mes commentaires</a></li> 
+						
 				</ul>
+				
+					
 			</div><!--/.nav-collapse -->
 		</div>
 	</div> 

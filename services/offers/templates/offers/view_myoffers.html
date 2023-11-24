@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block content %}
+<header id="head">
+    <header class="header-outer">
+        <div class="header-innerresponsive-wrapper">
+          <div class="header-logo">...</div>
+          <nav class="header-navigation">...</nav>
+        </div>
+      </header>
+    <h2>LISTE DE MES ANNONCES</h2>
+
+</header>
+
+<body>
+    <!--<div class="grid-container">-->
+        
+    <div align=center>
+        <table border="3" Cellspacing="1" Cellpadding="5">
+            <thead>  
+                <tr>                        
+                    <th scope="col">Mes offres</th>
+                </tr>                                                       
+            </thead>
+       
+    <tbody> 
+         
+            {% for offer in myoffers %} 
+            <tr>
+                <ul class='list-group'>
+                <div class="post">
+                    <td>
+                    <a href="{% url 'view_offer' offer.id %}">
+                                           
+                        <li>{{ offer.title }}                                
+                    </a>
+                    (Catégorie:{{ offer.category }})</li>
+                </td>
+                </div>
+            </tr>
+            {% endfor %}        
+        </tbody> 
+    </table>  
+</div>
+ 
+<body>
+{% endblock content %}

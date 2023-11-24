@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+<header id="head">
+    
+    <form class="input-group" method=POST action="{% url 'search' %}">
+        {% csrf_token %}       
+        <input class="form-control me-2"
+        type="search" placeholder="Tapez votre recherche par mot clé" aria-label="Chercher" aria-describedby="search-addon" name="query">
+        <!--<button class="icon"><i class="fa fa-search"></i></button>-->
+        <button id="result-button" class="btn btn-outline-secondary" type="submit">RECHERCHE</button>       
+    </form> 
+     
+    <h2>LISTE DES DEMANDES</h2>
+
+</header>
+
+<body>
+    <div class="grid-container">
+    <div align=center>
+    <ul>
+        {% for offer in requests %}
+            <div class="post">
+                <a href="{% url 'view_offer' offer.id %}">
+                    <li> {{ offer.title }}</li>
+                </a>
+            </div>
+        {% endfor %}
+    </ul>
+    </div>
+<body>
+{% endblock content %}

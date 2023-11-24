@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<header id="head">
+    <div class="container">
+    <h2>Modifier un commentaire</h2>
+</header>
+<body>
+    <form method="post">
+        {{ modifie_form.as_p }}
+        {% csrf_token %}
+        <button type="submit">Sauvegarder</button>
+    </form>
+
+</body>
+{% endblock content %}  

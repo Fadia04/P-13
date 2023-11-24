@@ -3,23 +3,24 @@
 <header id="head">
     <div class="container">
 
-    <h2>LISTE DES CATEGORIES</h2>
-</header>
-    
-        {% extends 'base.html' %}
-        {% block content %}
-            <header id="head">
-            <div class="container">
+    <h2>LISTE DES OFFRES PAR CATEGORIE</h2>
+</header>        
+           
+<body>
+    <div class="grid-container">
+    <ul>
+        {% for offer in offers %}
+            <div class="post">
+                <a href="{% url 'view_offer' offer.id %}">
+                    <li> {{ offer.title }}</li>
+                </a>
             </div>
-            <h2>DETAIL DE L'OFFRE</h2>
-            </header>
-            
-            <body>
-            
-            <h3>{{ offer.title }}</h3>
-            
-                
-            
+        {% endfor %}
+    </ul>
+    
+
+    </div>
+<body>
     
             </body>
-{% endblock content%}
+{% endblock %}

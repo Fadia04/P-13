@@ -7,13 +7,14 @@
 </header>
     <body>
     <div class="grid-container">
+        <ul class="post"> <a href="{% url 'view_offers' %}">Toutes les offres</a> </ul>
         {% for category in categories %}
-            <div class="post">
-                
-                <h4>Titre : {{ offer.title }}</h4>
-                
-            </div>
+            <ul class="post">
+                <!--<a href="{% url 'view_offers' %}?category={{ category.name }}">{{category.name}}</a>-->            
+                <a href="{% url 'view_category' category.id %}"</a>
+                    <li> {{ category.name }}</li>
+            </ul>
         {% endfor %}
     </div>
     <body>
-{% endblock content%}
+{% endblock %}

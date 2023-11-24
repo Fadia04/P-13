@@ -4,14 +4,17 @@
 {% block title %} Home {% endblock title %}
 {% block header %}
 <header id="head">
-    <div class="container">
+    <div class="container px-4 px-lg-5 h-25">
         <div class="row">
             <h1 class="lead">TROC DE SERVICES</h1>
             <p class="tagline">PARTAGEZ, ECONOMISEZ, POSITIVEZ <!--<a href="http://www.gettemplate.com/?utm_source=progressus&amp;utm_medium=template&amp;utm_campaign=progressus"> </a>--></p>
+            
+
+            
             <p><a class="btn btn-default btn-lg" role="button" href="{% url 'view_offers' %}">CONSULTER LES OFFRES</a>
+      
+            <a class="btn btn-action btn-lg" role="button" href="{% url 'view_requests' %}">CONSULTER LES DEMANDES</a></p>
                 
-                
-                <a class="btn btn-action btn-lg" role="button">CONSULTER LES DEMANDES</a></p>
         </div>
     </div>
 </header>
