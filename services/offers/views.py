@@ -112,14 +112,6 @@ def view_myrequests(request):
     print(myrequests)  
     return render(request,'offers/view_myrequests.html', {'myrequests': myrequests})
 
-def view_mycomments(request):
-    #offer = get_object_or_404(Offer, id=offer_id )
-    mycomments = Comment.objects.all().filter(user=request.user)
-    #user = Comment.objects.filter(offer=offer_id)
-    print(mycomments)
-       
-    return render(request,'offers/view_mycomments.html', {'mycomments': mycomments})
-
 
 def search(request):
     if request.method == "POST":
@@ -174,6 +166,15 @@ def add_comment(request, id):
         form = CommentForm
     context = {"form": form}
     return render(request, "offers/add_comment.html", context)
+
+def view_mycomments(request):
+    #offer = get_object_or_404(Offer, id=offer_id )
+    mycomments = Comment.objects.all().filter(user=request.user)
+    #user = Comment.objects.filter(offer=offer_id)
+    print(mycomments)
+       
+    return render(request,'offers/view_mycomments.html', {'mycomments': mycomments})
+
 
 @login_required
 #@permission_required('offers.delete_comment', raise_exception=True)

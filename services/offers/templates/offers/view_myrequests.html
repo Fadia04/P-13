@@ -9,7 +9,8 @@
 <body>
     
     <!--<div style="width:100%; text-align:center">-->
-    <div class="mt-5" align=center>
+    <div class="offers-div" align=center>
+        
     <!--<table class="table table-bordered">-->
         <table border="3" Cellspacing="1" Cellpadding="5">
             <thead>            
@@ -24,8 +25,9 @@
                 <td align="center">
                 <div class="post">
                     <a href="{% url 'view_offer' offer.id %}">                                           
-                        <li>{{ offer.title }} (Catégorie:{{ offer.category }})</li>                               
+                        <li>{{ offer.title }}                                
                     </a>
+                    (Catégorie:{{ offer.category }})</li>
                 </td>
                 </div>
             </tr>

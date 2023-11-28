@@ -47,7 +47,7 @@
                 <th scope="col">Date</th> 
                 <th scope="col">Supprimer</th> 
                 <th scope="col">Modifier</th>
-                <th scope="col">Répondre</th>
+                <!--<th scope="col">Répondre</th>-->
                 
                 
                                    
@@ -73,9 +73,9 @@
                     {% if request.user.username == comment.commenter_name %}
                     <td><a class="btn btn-primary"href="{% url 'modifie_comment' comment.id %}">Modifier</a></td> 
                     {% endif %} 
-                    {% if comment.commenter_name == offer.user.username and comment.commenter_name != request.user.username or offer.user.username == request.user.username and comment.commenter_name != request.user.username %}                  
+                    <!--{% if comment.commenter_name == offer.user.username and comment.commenter_name != request.user.username or offer.user.username == request.user.username and comment.commenter_name != request.user.username %}                  
                     <td><a class="btn btn-primary"href="{% url 'add-comment' offer.id %}">Répondre</a></td>
-                    {% endif %}
+                    {% endif %}-->
                 </tr>                                                            
                 {% endfor %}
             {% endif %}

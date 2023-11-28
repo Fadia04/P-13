@@ -96,18 +96,18 @@ img.pull-left { margin-right: 10px; }
 		margin-right: auto; 
    } 
 
-   .header-outer {
+.header-outer {
 	display: flex;
 	align-items: center;
 	position: sticky;
 	height: 120px;
   }
-  .header-inner {
+.header-inner {
 	height: 70px;
 	position: sticky;
 	top: 0; 
   }
-  .header-outer {
+.header-outer {
 	display: flex;
 	align-items: center;
 	position: sticky;
@@ -115,7 +115,11 @@ img.pull-left { margin-right: 10px; }
 	height: 120px;
   }
 
-  table,
+.table,
 td {
   border: 1px solid #333;
+}
+
+.offers-div {   
+    margin-top: 30px;
 }
