@@ -4,6 +4,7 @@ from django.urls import reverse, resolve
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 from offers.models import Offer, Category, Comment
+from users.models import User
 User=get_user_model()
 
 
@@ -66,19 +67,24 @@ def test_view_offers_url():
 @pytest.mark.django_db
 def test_view_offer_url():
     """Test the view_offer url"""
-    #offre = Offer.objects.create(title="perceuse", description = "échange une perceuse à percussion")
     cat=Category.objects.create(name="bricolage")
-    #model = get_user_model()
     user=User.objects.create(username="test_user", password="1234")
-    Offer.objects.create(title="perceuse", description = "échange une perceuse à percussion", category = cat, user=user)
-    #Offer.objects.create(offer=offre, category=cat, user=test_user)
+    Offer.objects.create(title="perceuse", description = "échange une perceuse à percussion", category = cat, user=user, type="offre")
     
-    path = reverse("view_offer", kwargs={"id": 1})
-    assert path == "/offers/1/"
+    path = reverse("view_offer", kwargs={"offer_id": 1})
+    assert path == "/view_offer/1"
     assert resolve(path).view_name == "view_offer"
     
-#@pytest.mark.django_db
-#def test_modifie_offer_url():
+@pytest.mark.django_db
+def test_modifie_offer_url():
+    """Test the modifie_offer url"""
+    cat=Category.objects.create(name="bricolage")
+    user=User.objects.create(username="test_user", password="1234")
+    Offer.objects.create(title="perceuse", description = "échange une perceuse à percussion", category = cat, user=user, type="offre")
+    path = reverse("modifie_offer", kwargs={"offer_id": 1})
+    assert path == "/modifie_offer/1"
+    assert resolve(path).view_name == "modifie_offer"
+    
     
 @pytest.mark.django_db
 def test_view_my_offers_url():
@@ -109,35 +115,48 @@ def test_view_categories_url():
     assert path == "/view_categories/"
     assert resolve(path).view_name == "view_categories"
     
-#@pytest.mark.django_db
-#def test_view_category_url():
+@pytest.mark.django_db   
+def test_view_category_url():
+    """Test the view_category url"""
+    Category.objects.create(name="bricolage")
+    path = reverse("view_category", kwargs={"category_id": 1})
+    assert path == "/view_category/1"
+    assert resolve(path).view_name == "view_category"
 
 @pytest.mark.django_db
 def test_add_comment_url():
     """Test the add_comment url"""
-    cat=Category.objects.create(category="bricolage")
+    cat=Category.objects.create(name="bricolage")
     user = User.objects.create_user(username="user")
-    offre = Offer.objects.create(title = "perceuse", description="échange une perceuse", category=cat, user=user)
-    #user_1= User.objects.create_user(username="user1")
-    Comment.objects.create(offer=offre)
+    offre = Offer.objects.create(title = "perceuse", description="échange une perceuse", category=cat, user=user, type="offre")
+    user_1= User.objects.create_user(username="user1")
+    Comment.objects.create(offer=offre, user=user_1)
     path = reverse("add-comment", kwargs={"id": 1})
-    assert path == "/offers/1/"
+    assert path == "/offers/1/add-comment"
     assert resolve(path).view_name == "add-comment"
+
+
     
 @pytest.mark.django_db
 def test_delete_comment_url():
     """Test the delete_comment url"""
-    Offer.objects.create(title="perceuse")
-    user=User.objects.create_user(username="user1")
-    Comment.objects.create(offer=offre, user=user)
+    cat=Category.objects.create(name="bricolage")
+    user = User.objects.create_user(username="user")
+    offre = Offer.objects.create(title = "perceuse", description="échange une perceuse", category=cat, user=user, type="offre")
+    user_1= User.objects.create_user(username="user1")
+    Comment.objects.create(offer=offre, user=user_1)
     path = reverse("delete-comment", kwargs={"id": 1})
-    assert path == "/offers/1/delete-comment"
+    assert path == "/delete-comment/1"
     assert resolve(path).view_name == "delete-comment"
     
 @pytest.mark.django_db
 def test_modifie_comment_url():
     """Test the modifie_comment url"""
-    Offer.objects.create(title="perceuse")
-    path = reverse("modifie_comment", kwargs={"id": 1})
-    assert path == "/offers/1/modifie_comment"
+    cat=Category.objects.create(name="bricolage")
+    user = User.objects.create_user(username="user")
+    offre = Offer.objects.create(title = "perceuse", description="échange une perceuse", category=cat, user=user, type="offre")
+    user_1= User.objects.create_user(username="user1")
+    Comment.objects.create(offer=offre, user=user_1)
+    path = reverse("modifie_comment", kwargs={"comment_id": 1})
+    assert path == "/modifie_comment/1"
     assert resolve(path).view_name == "modifie_comment"
