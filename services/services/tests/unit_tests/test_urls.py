@@ -94,6 +94,13 @@ def test_view_my_offers_url():
     assert resolve(path).view_name == "view_myoffers"
     
 @pytest.mark.django_db
+def test_view_my_requests_url():
+    """Test the view_my_offers url"""
+    path = reverse("view_myrequests")
+    assert path == "/view_myrequests/"
+    assert resolve(path).view_name == "view_myrequests"
+    
+@pytest.mark.django_db
 def test_view_requests_url():
     """Test the view_requests url"""
     path = reverse("view_requests")
