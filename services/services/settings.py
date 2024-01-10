@@ -31,6 +31,7 @@ SECRET_KEY = env("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 #DEBUG = True
 DEBUG = False if os.environ.get("ENV", "development") == "production" else True
+#DEBUG = os.environ.get("DEBUG", "False") == "True"
 ALLOWED_HOSTS = ['*']
 
 
@@ -49,13 +50,13 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
-    "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",   
 ]
 
 ROOT_URLCONF = "services.urls"
@@ -98,10 +99,11 @@ DATABASES = {
         #"HOST": env("DB_HOST"),
         #"PORT": env("DB_PORT"),
     #}
-    "default": 
-        dj_database_url.parse(env("DATABASE_URL"))
+    #"default": 
+        #dj_database_url.parse(env("DATABASE_URL"))
     }
-    
+database_url = os.environ.get("DATABASE_URL")
+DATABASES["default"]= dj_database_url.parse(database_url)
 
 
 
