@@ -9,40 +9,52 @@
 
 <body>
     <!--<div class="grid-container">-->
-    <div class="container">
-        <table class="table table-bordered">
+        <div align=center>
+        <table border="3" Cellspacing="1" Cellpadding="2">
             <thead>
             <tr>                
                 <th scope="col">Mes commentaires</th>
-                <th scope="col">Annonce</th>
-                                                               
+                <th scope="col">Annonce</th>                                                               
             </tr>
             </thead>
-
-    <div align=center>
-    
-        
+    <div align=center>        
     <tbody>  
-        <h3> Utilisateur connecté:{{ user }}
-            {% for comment in mycomments %}
+        <h4> Utilisateur connecté:{{ user }}</h4>
+            {% for comment in mycomments %}            
             <tr>
                 <div class="post">
-                    <a href="{% url 'view_mycomments' %}">
-                        {% if request.user.username == comment.commenter_name %}                  
-                        <td scope="row">{{ comment.comment_body }}</td>
-                        
-                        <td scope="row">
-                            {{ comment.offer.title }} (Publiée par : {{ comment.offer.user }})</td>
-                        {% endif %}
-            
-                    </a>
+                    <a href="{% url 'view_mycomments' %}"></a>
                     
+                        {% if request.user.username == comment.commenter_name %}</a>  
+                                       
+                        <td scope="row">{{ comment.comment_body }}</td>                      
+                        <td scope="row"><a href="{% url 'view_offer' comment.offer.id %}">
+                            {{ comment.offer.title }}</a>(Publiée par : {{ comment.offer.user }})</td>                                              
+                        
+                            
+                        {% endif %} 
+                                                                          
                 </div>
             </tr>
-            {% endfor %}
             
+            {% endfor %}            
         </table> 
     </tbody>  
     </div>
 <body>
 {% endblock content %}
+
+<body>
+    <div align=center>        
+            {% for offer in offers %}
+            <ul class='list-group'>
+                <div class="post">
+                    <a href="{% url 'view_offer' offer.id %}">                    
+                        <li class='list-group-item'>{{ offer.title }}                    
+                    </a>
+                    (Catégorie:{{ offer.category }} Date: {{ offer.date_added }})</li>
+                </div>
+            </ul>
+            {% endfor %}        
+    </div>
+<body>

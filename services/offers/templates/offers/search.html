@@ -4,34 +4,37 @@
 {% block content %}
 <!--<body>-->
     <header id="head">
-        
+        <div class="container"> 
+            <center>       
         <form class="input-group" method=POST action="{% url 'search' %}">
             {% csrf_token %}       
             <input class="form-control me-2"
             type="search" placeholder="Tapez votre recherche par mot clé" aria-label="Chercher" aria-describedby="search-addon" name="query">
             <!--<button class="icon"><i class="fa fa-search"></i></button>-->
-    
+            <button id="result-button" class="btn btn-outline-secondary" type="submit">RECHERCHE</button>    
+      
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="type" value='Offre' id="flexRadioDefault1"/>
                 <label class="form-check-label" for="flexRadioDefault1"> Offres </label>
-              </div>
-              
+              </div>              
               <!-- Default checked radio -->
               <div class="form-check">
                 <input class="form-check-input" type="radio" name="type" value='Demande' id="flexRadioDefault2"/>
                 <label class="form-check-label" for="flexRadioDefault2"> Demandes </label>
-              </div>
-              
-    
-            <button id="result-button" class="btn btn-outline-secondary" type="submit">RECHERCHE</button>       
+              </div>    
+               
         </form> 
-
+        <div align=center>
+        </center>
         <div class="container">
                 <center>
-                    {% if query %}
+                    {% if offers %}
                         <h1>Voici les annonces que vous avez recherchées pour: {{query}}</h1>
                     {% else %}
-                        <h1> Nous n'avons pas trouvé l'annonce recherchée, veuillez retaper votre demande</h1>
+                    {% comment %}
+                     <h1>Nous n'avons pas trouvé l'annonce recherchée, veuillez retaper votre demande</h1> 
+                     {% endcomment %}
+                        <h1>Veuillez indiquer un mot clé et cliquez sur recherche</h1>
                     {% endif %}
                 </center>               
     
@@ -52,6 +55,12 @@
                     </a>                         
                     </div>                           
                 </div>
+                {% empty %}
+                {% if query %}
+                <h3>Aucune annonce trouvée avec ce mot clé</h3>
+                {% else %}
+                <h4></h4>
+                {% endif %}   
                 {% endfor %}
                 
         

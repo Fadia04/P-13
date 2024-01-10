@@ -5,6 +5,7 @@ from django.shortcuts import get_object_or_404
 from datetime import datetime
 from itertools import chain
 from offers.models import Offer, Category, Comment
+from users.models import User
 from offers.forms import OfferForm, CommentForm
 from django.db.models import Q
 
@@ -104,7 +105,7 @@ def view_offers(request):
 
 def view_myoffers(request):
     # offers = Offer.objects.all()
-    myoffers = Offer.objects.all().filter(user=request.user, type="Offre")
+    myoffers = Offer.objects.all().filter(user=request.user.id, type="Offre")
 
     return render(request, "offers/view_myoffers.html", {"myoffers": myoffers})
 
@@ -118,7 +119,8 @@ def view_requests(request):
 
 def view_myrequests(request):
     # offers = Offer.objects.all()
-    myrequests = Offer.objects.all().filter(user=request.user, type="Demande")
+    #user = User.objects.create_user(username="user")
+    myrequests = Offer.objects.all().filter(user=request.user.id, type="Demande")
     print(myrequests)
     return render(request, "offers/view_myrequests.html", {"myrequests": myrequests})
 
@@ -187,7 +189,7 @@ def add_comment(request, id):
 
 def view_mycomments(request):
     """View to read a comment by it's owner"""
-    mycomments = Comment.objects.all().filter(user=request.user)
+    mycomments = Comment.objects.all().filter(user=request.user.id)
     return render(request, "offers/view_mycomments.html", {"mycomments": mycomments})
 
 
@@ -224,7 +226,7 @@ def view_category(request, category_id):
 
 
 def view_categories(request):
-    categories = Category.objects.all()
+    categories = Category.objects.all().order_by("name")
 
     return render(request, "offers/view_categories.html", {"categories": categories})
 

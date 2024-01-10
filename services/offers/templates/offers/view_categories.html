@@ -2,19 +2,57 @@
 {% block content %}
 <header id="head">
     <div class="container">
-
+          
+             <center>
+                <form class="input-group" method=POST action="{% url 'search' %}">
+                    {% csrf_token %}       
+                    <input class="form-control me-2"
+                    type="search" placeholder="Tapez la catégorie recherchée" aria-label="Chercher" aria-describedby="search-addon" name="query">
+                    <button id="result-button" class="btn btn-outline-secondary" type="submit">RECHERCHE</button> 
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="type" value='Offre' id="flexRadioDefault1"/>
+                        <label class="form-check-label" for="flexRadioDefault1"> Offres </label>
+                      </div>              
+                      <!-- Default checked radio -->
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="type" value='Demande' id="flexRadioDefault2"/>
+                        <label class="form-check-label" for="flexRadioDefault2"> Demandes </label>
+                      </div>    
+                </form> 
+            </center>
+            </div>
     <h2>LISTE DES CATEGORIES</h2>
 </header>
     <body>
     <div class="grid-container">
-        <ul class="post"> <a href="{% url 'view_offers' %}">Toutes les offres</a> </ul>
+        <div align=center>
         {% for category in categories %}
-            <ul class="post">
+        <ul class='list-group'>
+            <div class="post">
                 <!--<a href="{% url 'view_offers' %}?category={{ category.name }}">{{category.name}}</a>-->            
                 <a href="{% url 'view_category' category.id %}"</a>
-                    <li> {{ category.name }}</li>
-            </ul>
+                    <li class='list-group-item'> {{ category.name }}</li>
+                </div>  
+        
+        </ul>
         {% endfor %}
     </div>
     <body>
 {% endblock %}
+
+<body>
+    <div class="grid-container">
+    <div align=center>
+        {% for offer in requests %}
+        <ul class='list-group'>
+            <div class="post">
+                <a href="{% url 'view_offer' offer.id %}">
+                    <li class='list-group-item'>{{ offer.title }}
+                </a>
+                (Catégorie:{{ offer.category }} Date: {{ offer.date_added }})</li>
+            </div>
+        </ul>
+        {% endfor %}
+    
+    </div>
+<body>

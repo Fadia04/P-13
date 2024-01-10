@@ -2,13 +2,25 @@
 {% block content %}
 <header id="head">
     
-    <form class="input-group" method=POST action="{% url 'search' %}">
-        {% csrf_token %}       
-        <input class="form-control me-2"
-        type="search" placeholder="Tapez votre recherche par mot clé" aria-label="Chercher" aria-describedby="search-addon" name="query">
+    <div class="container">   
+        <center>
+        <form class="input-group" method=POST action="{% url 'search' %}">
+            {% csrf_token %}       
+            <input class="form-control me-2"
+            type="search" placeholder="Tapez votre recherche" aria-label="Chercher" aria-describedby="search-addon" name="query">
         <!--<button class="icon"><i class="fa fa-search"></i></button>-->
-        <button id="result-button" class="btn btn-outline-secondary" type="submit">RECHERCHE</button>       
-    </form> 
+            <div class="form-check">
+                
+                <input class="form-check-input" type="radio" name="type" value='Demande' id="flexRadioDefault2"/>
+                <label class="form-check-label" for="flexRadioDefault2"> Demandes </label>
+            <button id="result-button" class="btn btn-outline-secondary" type="submit">RECHERCHE</button>       
+        </div>
+        </form> 
+    </center>
+    </div>
+    
+</div>
+<div align=center>
      
     <h2>LISTE DES DEMANDES</h2>
 
@@ -17,15 +29,17 @@
 <body>
     <div class="grid-container">
     <div align=center>
-    <ul>
         {% for offer in requests %}
+        <ul class='list-group'>
             <div class="post">
                 <a href="{% url 'view_offer' offer.id %}">
-                    <li> {{ offer.title }}</li>
+                    <li class='list-group-item'>{{ offer.title }}
                 </a>
+                (Catégorie:{{ offer.category }} Date: {{ offer.date_added }})</li>
             </div>
+        </ul>
         {% endfor %}
-    </ul>
+    
     </div>
 <body>
 {% endblock content %}

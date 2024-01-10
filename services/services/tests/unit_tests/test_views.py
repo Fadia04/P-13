@@ -83,7 +83,7 @@ def test_create_offer_success_is_redirected_to_home_view():
     cat = Category.objects.create(name="bricolage")
     
     client.login(username="test_user", password="5678")    
-    data = {"title": "perceuse", "description":"échange une perceuse", "category":cat, "available": True, "modifie_offer": True}
+    data = {"title": "perceuse", "description":"échange une perceuse", "category":cat.id, "available": True, "modifie_offer": True}
     path = reverse("create-offer")
     response = client.post(path, data, follow=True)
     
@@ -137,7 +137,7 @@ def test_modifie_offer_is_redirected_successfully():
     offer = Offer.objects.create(title="perceuse", description = "échange une perceuse", category=cat, user=test_user, type="Offre")
     
     client.login(username="test_user", password="5678")
-    data = {"title": "perceuse", "description":"échange une perceuse", "category":cat, "available":True, "modifie_offer": True}
+    data = {"title": "perceuse", "description":"échange une perceuse", "category":cat.id, "available":True, "modifie_offer": True}
     path = reverse("modifie_offer", kwargs={"offer_id": offer.id})
     response = client.post(path, data, follow=True)
     assertRedirects(
@@ -308,7 +308,7 @@ def test_add_valid_comment_is_redirected_succesfully():
     response= client.post(path, data, follow=True)
     assertRedirects(
         response=response,
-        expected_url="/view_offer/id",
+        expected_url=f"/view_offer/{offer.id}",
         status_code=302,
         target_status_code=200,
     )
