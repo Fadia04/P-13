@@ -109,13 +109,13 @@ WSGI_APPLICATION = "services.wsgi.application"
 #DATABASES["default"]= dj_database_url.parse(database_url)
 if not DEBUG:
     DATABASES = {
-        "default": 
+    "default": 
         dj_database_url.parse(env("DATABASE_URL"), conn_max_age=600)
     }
     
 else:
     DATABASES = {
-        "default": {
+    "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
         "NAME": env("DB_NAME"),
         "USER": env("DB_USER"),
