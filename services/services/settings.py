@@ -30,6 +30,7 @@ SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 #DEBUG = True
+#DEBUG = os.environ.get('DEBUG), 'True')=="True"
 DEBUG = False if os.environ.get("ENV", "development") == "production" else True
 #DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost','https://services-exchange.onrender.com']
@@ -108,6 +109,7 @@ WSGI_APPLICATION = "services.wsgi.application"
 #database_url = os.environ.get("DATABASE_URL")
 #DATABASES["default"]= dj_database_url.parse(database_url)
 if not DEBUG:
+    print('prod')
     DATABASES = {
     "default": 
         dj_database_url.parse(env("DATABASE_URL"), conn_max_age=600)
