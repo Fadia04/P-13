@@ -31,8 +31,8 @@ SECRET_KEY = env("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 #DEBUG = True
 DEBUG = False if os.environ.get("ENV", "development") == "production" else True
-#DEBUG = os.environ.get("DEBUG", "False") == "True"
-ALLOWED_HOSTS = ['*']
+#DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost','https://services-exchange.onrender.com']
 
 
 # Application definition
@@ -57,6 +57,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",   
+    #"django.contrib.auth.middleware.SessionAuthenticationMiddleware",
 ]
 
 ROOT_URLCONF = "services.urls"
@@ -86,7 +87,7 @@ WSGI_APPLICATION = "services.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
+#DATABASES = {
     # "default": {
     #     "ENGINE": "django.db.backends.sqlite3",
     #     "NAME": BASE_DIR / "db.sqlite3",
@@ -98,13 +99,31 @@ DATABASES = {
         #"PASSWORD": env("DB_PASSWORD"),
         #"HOST": env("DB_HOST"),
         #"PORT": env("DB_PORT"),
-    #}
+        #}
+    
+    #Render postgresql database
     #"default": 
-        #dj_database_url.parse(env("DATABASE_URL"))
+        #dj_database_url.parse(env("DATABASE_URL"), conn_max_age=600)
+    #}
+#database_url = os.environ.get("DATABASE_URL")
+#DATABASES["default"]= dj_database_url.parse(database_url)
+if not DEBUG:
+    DATABASES = {
+        "default": 
+        dj_database_url.parse(env("DATABASE_URL"), conn_max_age=600)
     }
-database_url = os.environ.get("DATABASE_URL")
-DATABASES["default"]= dj_database_url.parse(database_url)
-
+    
+else:
+    DATABASES = {
+        "default": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": env("DB_NAME"),
+        "USER": env("DB_USER"),
+        "PASSWORD": env("DB_PASSWORD"),
+        "HOST": env("DB_HOST"),
+        "PORT": env("DB_PORT"),
+        }
+    }
 
 
 # Password validation
@@ -151,6 +170,7 @@ MEDIA_ROOT = "/media/"
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 

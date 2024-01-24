@@ -38,12 +38,13 @@
 	<!-- Fixed navbar -->
     {% block nav %}
     <div class="navbar navbar-inverse navbar-fixed-top headroom" >
-		<div class="container">
+		<div class="container px-4 px-lg-5">
 			<div class="navbar-header">
 				<!-- Button for smallest screens -->
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
 				<!--sigle progressus-->
-				<a class="navbar-brand" href="home.html"><img src="{% static 'assets/images/logo_services.png' %}" alt=" HTML5 template"></a>
+				<a class="navbar-brand" 
+				href="home.html"><img src="{% static 'assets/images/logo_services.png' %}" alt=" HTML5 template"></a>
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav pull-right">
@@ -66,7 +67,7 @@
 							<li class="active"><a href="{% url 'create-request' %}">Créer une demande</a></li>
 						</ul>
 					</li>
-					<li><a href="contact.html">Contact</a></li>
+					<!--<li><a href="contact.html">Contact</a></li>-->
 					<!--<li><a class="btn" href="{% url 'signin' %}">SIGN IN / SIGN UP</a></li>-->
 				
 						
