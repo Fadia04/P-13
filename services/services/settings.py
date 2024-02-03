@@ -33,8 +33,8 @@ SECRET_KEY = env("SECRET_KEY")
 #DEBUG = os.environ.get('DEBUG), 'True')=="True"
 DEBUG = False if os.environ.get("ENV", "development") == "production" else True
 #DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost','https://services-exchange.onrender.com']
-
+#ALLOWED_HOSTS = ['127.0.0.1', 'localhost','https://services-exchange.onrender.com']
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
