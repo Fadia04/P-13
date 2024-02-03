@@ -21,7 +21,6 @@ import offers.views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    #path("", TemplateView.as_view(template_name="offers/home.html"), name="home",),
     path("", offers.views.home, name="home"),
     path("users/", include("django.contrib.auth.urls")),
     path("signin/", users.views.login_page, name="signin"),
@@ -42,6 +41,7 @@ urlpatterns = [
     path('view_mycomments/', offers.views.view_mycomments, name='view_mycomments'),
     path('modifie_comment/<int:comment_id>', offers.views.modifie_comment, name='modifie_comment'),   
     path("delete-comment/<int:id>",offers.views.delete_comment,name="delete-comment",),
+    path("legal_notices/", offers.views.legal_notices, name="notices"),
     
     
    

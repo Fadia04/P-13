@@ -43,8 +43,8 @@
 				<!-- Button for smallest screens -->
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
 				<!--sigle progressus-->
-				<a class="navbar-brand" 
-				href="home.html"><img src="{% static 'assets/images/logo_services.png' %}" alt=" HTML5 template"></a>
+				<a class="navbar-brand"> 
+				 <img src="{% static 'assets/images/logo_services.png' %}" alt=" HTML5 template"></a>
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav pull-right">
@@ -80,7 +80,7 @@
 							</ul>
 						</li>
 
-						<li><a href="{% url 'view_mycomments' %} ">MES COMMENTAIRES</a></li> 
+						<li><a href="{% url 'view_mycomments' %} ">MES MESSAGES</a></li> 
 
 						{% if user.is_authenticated %}
                             <li><a class="btn" href="{% url 'logout' %}">DECONNEXION</a></li>
@@ -121,12 +121,11 @@
 				<div class="row">
 					
 					<div class="col-md-3 widget">
-						<h3 class="widget-title">Contact</h3>
+						<h3 class="widget-title">Contactez-nous</h3>
 						<div class="widget-body">
 							<p>+234 23 9873237<br>
-								<a href="mailto:#">some.email@somewhere.com</a><br>
+								<a href="mailto:#">echange.email@solidarite</a><br>
 								<br>
-								234 Hidden Pond Road, Ashland City, TN 37015
 							</p>	
 						</div>
 					</div>
@@ -143,13 +142,6 @@
 						</div>
 					</div>
 
-					<div class="col-md-6 widget">
-						<h3 class="widget-title">Text widget</h3>
-						<div class="widget-body">
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi, dolores, quibusdam architecto voluptatem amet fugiat nesciunt placeat provident cumque accusamus itaque voluptate modi quidem dolore optio velit hic iusto vero praesentium repellat commodi ad id expedita cupiditate repellendus possimus unde?</p>
-							<p>Eius consequatur nihil quibusdam! Laborum, rerum, quis, inventore ipsa autem repellat provident assumenda labore soluta minima alias temporibus facere distinctio quas adipisci nam sunt explicabo officia tenetur at ea quos doloribus dolorum voluptate reprehenderit architecto sint libero illo et hic.</p>
-						</div>
-					</div>
 
 				</div> <!-- /row of widgets -->
 			</div>
@@ -162,11 +154,8 @@
 					<div class="col-md-6 widget">
 						<div class="widget-body">
 							<p class="simplenav">
-								<a href="#">Home</a> | 
-								<a href="about.html">About</a> |
-								<a href="sidebar-right.html">Sidebar</a> |
-								<a href="contact.html">Contact</a> |
-								<b><a href="signup.html">Sign up</a></b>
+								<a href="{% url 'notices' %}">Mentions légales</a> | 
+								<b><a href="{% url 'signup' %}">Sign up</a></b>
 							</p>
 						</div>
 					</div>

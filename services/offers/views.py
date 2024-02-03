@@ -13,12 +13,13 @@ from django.db.models import Q
 
 
 def home(request):
-    """View allowed to return home page"""
+    """View dedicated to return home page"""
     return render(request, "offers/home.html")
 
 
 @login_required
 def offer_creation(request):
+    """View to display create_offer page and allow the user to create an offer annoucement """
     offer_form = forms.OfferForm()
     if request.method == "POST":
         offer_form = forms.OfferForm(request.POST)
@@ -38,6 +39,7 @@ def offer_creation(request):
 
 @login_required
 def request_creation(request):
+    """View to display create_offer page and allow the user to create a request annoucement """
     offer_form = forms.OfferForm()
     if request.method == "POST":
         offer_form = forms.OfferForm(request.POST)
@@ -58,6 +60,7 @@ def request_creation(request):
 @login_required
 # @permission_required('offers.modifie_offer', raise_exception=True)
 def modifie_offer(request, offer_id):
+    """View to display modifie_offer page and allow the user to change or delete his own offer and return to home page """
     offer = get_object_or_404(Offer, id=offer_id)
     modifie_form = forms.OfferForm(instance=offer)
     delete_form = forms.DeleteOfferForm()
@@ -85,10 +88,10 @@ def modifie_offer(request, offer_id):
 
 
 def view_offer(request, offer_id):
+    """View to display view_offer page and to count the number of comments added for this offer """
     offer = get_object_or_404(Offer, id=offer_id)
     num_comments = Comment.objects.filter(offer=offer).count()
 
-    # offers = Offer.objects.all(id=offer_id)
     return render(
         request,
         "offers/view_offer.html",
@@ -97,29 +100,28 @@ def view_offer(request, offer_id):
 
 
 def view_offers(request):
-    # offers = Offer.objects.all()
+    """View dedicated to display view_offers page and display all published annoucements according to their type: offer"""
     offers = Offer.objects.all().filter(type="Offre")
 
     return render(request, "offers/view_offers.html", {"offers": offers})
 
 
 def view_myoffers(request):
-    # offers = Offer.objects.all()
+    """View dedicated to display view_myoffers page and display all offers published by the logged in user"""
     myoffers = Offer.objects.all().filter(user=request.user.id, type="Offre")
 
     return render(request, "offers/view_myoffers.html", {"myoffers": myoffers})
 
 
 def view_requests(request):
-    # requests = Offer.objects.all()
+    """View dedicated to display view_requests page and display all pubished requests"""
     requests = Offer.objects.all().filter(type="Demande")
 
     return render(request, "offers/view_requests.html", {"requests": requests})
 
 
 def view_myrequests(request):
-    # offers = Offer.objects.all()
-    #user = User.objects.create_user(username="user")
+    """View dedicated to display view_myoffers page and display all requests published by the logged in user"""
     myrequests = Offer.objects.all().filter(user=request.user.id, type="Demande")
     print(myrequests)
     return render(request, "offers/view_myrequests.html", {"myrequests": myrequests})
@@ -142,22 +144,6 @@ def search(request):
     else:
         message = ""
         return render(request, "offers/search.html", {"message": message})
-
-
-"""
-def search_categories(request):
-    if request.method == "POST":
-        query = request.POST["query"]
-        offers = Offer.objects.filter(category__name__icontains=query)
-     
-        
-        return render(
-            request, "offers/search.html", {"query": query, "offers": offers}
-        )
-    else:
-        message = ""
-        return render(request, "offers/search.html", {"message": message})
-"""
 
 
 @login_required
@@ -203,15 +189,8 @@ def delete_comment(request, id):
     else:
         mess = "Vous ne pouvez pas supprimer ce commentaire"
         return render(request, "offers/view_offers.html", {"message": mess})
-        
+
     return redirect("view_offer", offer_id=offer_id)
-
-# def show_comment(request):
-# """View to read a comment by it's owner"""
-# comment = Comment.objects.filter(user = request.user)
-# comment = Comment.objects.filter(user = comment.user.username)
-# return render("offers/add_comment.html", comment)
-
 
 
 def view_category(request, category_id):
@@ -232,7 +211,6 @@ def view_categories(request):
 
 
 @login_required
-# @permission_required('offers.modifie_offer', raise_exception=True)
 def modifie_comment(request, comment_id):
     comment = get_object_or_404(Comment, id=comment_id)
     offer_id = comment.offer_id
@@ -249,36 +227,12 @@ def modifie_comment(request, comment_id):
                     modifie_form.save()
                     return redirect("view_offer", offer_id=offer_id)
 
-                # if 'delete_offer' in request.POST:
-                # delete_form = forms.DeleteOfferForm(request.POST)
-                # if delete_form.is_valid():
-                # offer.delete()
-                # return redirect('home')
-
     context = {
         "modifie_form": modifie_form,
-        #'delete_form': delete_form,
+        # 'delete_form': delete_form,
     }
     return render(request, "offers/modifie_comment.html", context=context)
 
-
-"""
-def search_categories(request):
-    if request.method == "POST":
-        query = request.POST["query"]
-        offers = Offer.objects.filter(description__icontains=query).order_by("date_added")
-        
-        categories = Category.objects.filter(name__in=offers)
-        cat_id = [category.category_id for category in categories]
-        offer_id = Offer.objects.filter(category_id__in=cat_id)
-     
-        #cat = Category.objects.filter(offer__in=offers)
-        #all= Offer.objects.filter()
-        
-        return render(
-            request, "offers/search.html", {"query": query, "category": alloffers}
-        )
-    else:
-        message = ""
-        return render(request, "offers/search.html", {"message": message})
-"""
+def legal_notices(request):
+    """View used to return notices page"""
+    return render(request,"offers/legal_notices.html")
