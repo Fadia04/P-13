@@ -1,20 +1,23 @@
-from django.shortcuts import render
-from django import forms
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
-from django.conf import settings
 from . import forms
-from django.contrib.auth.decorators import login_required
+
 
 # Create your views here.
+
+
 def logout_user(request):
-    """View to allow a loged user to logout"""
+    """View to allow a loged in user to logout and return signin page"""
     logout(request)
     return redirect("signin")
 
 
 def login_page(request):
-    """View to allow a registered user to log"""
+    """View to display signin page containing a signin form to allow a 
+    registered user to log and return home page. If the username or the 
+    password are not valid, it display a message to allow the user to enter 
+    new username or password
+    """
     form = forms.LoginForm()
     message = ""
     if request.method == "POST":
@@ -35,7 +38,7 @@ def login_page(request):
 
 
 def signup_page(request):
-    """View used to return a signup form and allows a user to register"""
+    """View used to return signup page containing a signup form  and allows the user to register"""
     form = forms.SignupForm()
     if request.method == "POST":
         form = forms.SignupForm(request.POST)

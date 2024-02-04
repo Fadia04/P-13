@@ -10,13 +10,13 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
+import dj_database_url
 from pathlib import Path
 import os
 
-import environ #(python -m pip install django environ)
+import environ  # (python -m pip install django environ)
 env = environ.Env()
 environ.Env.read_env()
-import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -29,11 +29,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = True
-#DEBUG = os.environ.get('DEBUG), 'True')=="True"
+# DEBUG = True
+# DEBUG = os.environ.get('DEBUG), 'True')=="True"
 DEBUG = False if os.environ.get("ENV", "development") == "production" else True
-#DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
-#ALLOWED_HOSTS = ['127.0.0.1', 'localhost','https://services-exchange.onrender.com']
+# DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
+# ALLOWED_HOSTS = ['127.0.0.1', 'localhost','https://services-exchange.onrender.com']
 ALLOWED_HOSTS = ["*"]
 
 # Application definition
@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "offers",   
+    "offers",
     "users",
 ]
 
@@ -57,8 +57,8 @@ MIDDLEWARE = [
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
-    "django.middleware.clickjacking.XFrameOptionsMiddleware",   
-    #"django.contrib.auth.middleware.SessionAuthenticationMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    # "django.contrib.auth.middleware.SessionAuthenticationMiddleware",
 ]
 
 ROOT_URLCONF = "services.urls"
@@ -66,7 +66,7 @@ ROOT_URLCONF = "services.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        #"DIRS": [os.path.join(BASE_DIR, "templates")],
+        # "DIRS": [os.path.join(BASE_DIR, "templates")],
         "DIRS": [
             BASE_DIR.joinpath("templates"),
         ],
@@ -88,42 +88,42 @@ WSGI_APPLICATION = "services.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-#DATABASES = {
-    # "default": {
-    #     "ENGINE": "django.db.backends.sqlite3",
-    #     "NAME": BASE_DIR / "db.sqlite3",
-    # }
-    #"default": {
-        #"ENGINE": "django.db.backends.postgresql_psycopg2",
-        #"NAME": env("DB_NAME"),
-        #"USER": env("DB_USER"),
-        #"PASSWORD": env("DB_PASSWORD"),
-        #"HOST": env("DB_HOST"),
-        #"PORT": env("DB_PORT"),
-        #}
-    
-    #Render postgresql database
-    #"default": 
-        #dj_database_url.parse(env("DATABASE_URL"), conn_max_age=600)
-    #}
-#database_url = os.environ.get("DATABASE_URL")
-#DATABASES["default"]= dj_database_url.parse(database_url)
+# DATABASES = {
+# "default": {
+#     "ENGINE": "django.db.backends.sqlite3",
+#     "NAME": BASE_DIR / "db.sqlite3",
+# }
+# "default": {
+# "ENGINE": "django.db.backends.postgresql_psycopg2",
+# "NAME": env("DB_NAME"),
+# "USER": env("DB_USER"),
+# "PASSWORD": env("DB_PASSWORD"),
+# "HOST": env("DB_HOST"),
+# "PORT": env("DB_PORT"),
+# }
+
+# Render postgresql database
+# "default":
+# dj_database_url.parse(env("DATABASE_URL"), conn_max_age=600)
+# }
+# database_url = os.environ.get("DATABASE_URL")
+# DATABASES["default"]= dj_database_url.parse(database_url)
 if not DEBUG:
     print('prod')
     DATABASES = {
-    "default": 
+        "default":
         dj_database_url.parse(env("DATABASE_URL"), conn_max_age=600)
     }
-    
+
 else:
     DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": env("DB_NAME"),
-        "USER": env("DB_USER"),
-        "PASSWORD": env("DB_PASSWORD"),
-        "HOST": env("DB_HOST"),
-        "PORT": env("DB_PORT"),
+        "default": {
+            "ENGINE": "django.db.backends.postgresql_psycopg2",
+            "NAME": env("DB_NAME"),
+            "USER": env("DB_USER"),
+            "PASSWORD": env("DB_PASSWORD"),
+            "HOST": env("DB_HOST"),
+            "PORT": env("DB_PORT"),
         }
     }
 
@@ -172,7 +172,7 @@ MEDIA_ROOT = "/media/"
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
-#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 

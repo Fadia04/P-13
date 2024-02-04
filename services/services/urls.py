@@ -15,7 +15,6 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from django.views.generic import TemplateView
 import users.views
 import offers.views
 
@@ -39,12 +38,7 @@ urlpatterns = [
     path('search/', offers.views.search, name='search'),
     path("offers/<int:id>/add-comment", offers.views.add_comment, name="add-comment"),
     path('view_mycomments/', offers.views.view_mycomments, name='view_mycomments'),
-    path('modifie_comment/<int:comment_id>', offers.views.modifie_comment, name='modifie_comment'),   
-    path("delete-comment/<int:id>",offers.views.delete_comment,name="delete-comment",),
+    path('modifie_comment/<int:comment_id>', offers.views.modifie_comment, name='modifie_comment'),
+    path("delete-comment/<int:id>", offers.views.delete_comment, name="delete-comment"),
     path("legal_notices/", offers.views.legal_notices, name="notices"),
-    
-    
-   
-    #path('search_categories/', offers.views.search_categories, name='search_categories'),
-]   
-
+]
