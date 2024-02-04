@@ -12,10 +12,11 @@
             {% for offer in offers %}
                 <div class="post">
                     <a href="{% url 'view_offer' offer.id %}">
-                    <li> {{ offer.title }}</li>
+                    <h4>{{ offer.title }}</h4>
                     </a>
+                    (Date: {{ offer.date_added }})
                 </div>
-        {% endfor %}
+            {% endfor %}
         </ul>
     </div>
 <body>

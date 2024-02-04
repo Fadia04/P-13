@@ -28,8 +28,9 @@
         {% for category in categories %}
         <ul class='list-group'>
             <div class="post">
+                
                 <a href="{% url 'view_category' category.id %}"</a>
-                    <li class='list-group-item'> {{ category.name }}</li>
+                    <h4><li class='list-group-item'> {{ category.name }}</li></h4>
                 </div>          
         </ul>
         {% endfor %}

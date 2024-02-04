@@ -13,12 +13,11 @@
         <button type="submit">Sauvegarder</button>
     </form>
 
-    <h3>Supprimer une annonce</h3>
     
     <form method="post">
         {{ delete_form.as_p }}
         {% csrf_token %}         
-        <button type="submit">Supprimer</button>        
+             
     </form>
     </div> 
     

@@ -49,6 +49,7 @@
                 
                 {% for offer in offers %}
                 <ul class='list-group'>
+                    
                     <div class="post">                                   
                     <a href="{% url 'view_offer' offer.id %}">
                         <h4>{{ offer.title }}</h4>
