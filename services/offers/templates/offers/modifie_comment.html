@@ -6,11 +6,12 @@
     <h2>MODIFIEZ VOTRE MESSAGE</h2>
 </header>
 <body>
-    <form method="post">
-        {{ modifie_form.as_p }}
-        {% csrf_token %}
-        <button type="submit">Sauvegarder</button>
-    </form>
-
+    <div class="container m-2">
+        <form method="post">
+            {{ modifie_form.as_p }}
+            {% csrf_token %}
+            <button type="submit">Sauvegarder</button>
+        </form>
+    </div>
 </body>
 {% endblock content %}  

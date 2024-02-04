@@ -7,18 +7,16 @@
 </header>        
            
 <body>
-    <div class="grid-container">
-    <ul>
-        {% for offer in offers %}
-            <div class="post">
-                <a href="{% url 'view_offer' offer.id %}">
+    <div class="container" align=center> 
+        <ul>
+            {% for offer in offers %}
+                <div class="post">
+                    <a href="{% url 'view_offer' offer.id %}">
                     <li> {{ offer.title }}</li>
-                </a>
-            </div>
+                    </a>
+                </div>
         {% endfor %}
-    </ul>
-    
-
+        </ul>
     </div>
 <body>
     

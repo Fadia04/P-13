@@ -6,15 +6,13 @@
     </header>
     
     <body>
-    <div class="container m-2">
-    <ul>
+        <div class="offers-div" align=center>
      
     <h4>Catégorie : {{ offer.category }}</h4>
     <h4>Type : {{ offer.type }}</h4>
     <h4>Publiée par : {{ offer.user }}</h4>
     
-    <table border="3" Cellspacing="1" Cellpadding="2">
-    
+    <table border="3" Cellspacing="1" Cellpadding="2">    
         <thead>
         <tr> 
             <th colspan="2">{{ offer.title }}</th>
@@ -28,12 +26,13 @@
         </tbody> 
     </table>
     {% if request.user == offer.user %}
-    <p><a href="{% url 'modifie_offer' offer.id %}">Modifier l'annonce</a></p>
+    <p><a class="btn btn-primary"href="{% url 'modifie_offer' offer.id %}">Modifier l'annonce</a></p>
     {% endif %}
-
+    {% if request.user == offer.user %}
+    <p><a class="btn btn-danger" href="{% url 'delete_offer' offer.id %}">Supprimer l'annonce</a></p>
+    {% endif %}
     </ul>
     </div>
-
 
     <div class="container">
         <h3>Messages ({{ num_comments }})</h3>
@@ -47,10 +46,7 @@
                 <th scope="col">Date</th> 
                 <th scope="col">Supprimer</th> 
                 <th scope="col">Modifier</th>
-                <!--<th scope="col">Répondre</th>-->
-                
-                
-                                   
+                <!--<th scope="col">Répondre</th>-->                                   
             </tr>
             </thead>
             <tbody>

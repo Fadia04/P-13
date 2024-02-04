@@ -75,10 +75,21 @@ def modifie_offer(request, offer_id):
     context = {
         "modifie_form": modifie_form,
         "delete_form": delete_form,
-        "message": message
-    }
+        }
     return render(request, "offers/modifie_offer.html", context=context)
 
+@login_required
+def delete_offer(request, id):
+    """View to delete a published offer by it's owner"""
+    offer = Offer.objects.get(pk=id)
+    
+    if offer.user == request.user:
+        offer.delete()
+    else:
+        mess = "Vous ne pouvez pas supprimer cette annonce"
+        return render(request, "offers/modifie_offer.html", {"offer":offer,"message": mess})
+
+    return redirect("home")
 
 def view_offer(request, offer_id):
     """View to display view_offer page, with all offer informations,

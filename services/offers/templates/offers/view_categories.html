@@ -23,17 +23,14 @@
             </div>
     <h2>LISTE DES CATEGORIES</h2>
 </header>
-    <body>
-    <div class="grid-container">
-        <div align=center>
+<body>
+    <div class="container" align=center> 
         {% for category in categories %}
         <ul class='list-group'>
             <div class="post">
-                <!--<a href="{% url 'view_offers' %}?category={{ category.name }}">{{category.name}}</a>-->            
                 <a href="{% url 'view_category' category.id %}"</a>
                     <li class='list-group-item'> {{ category.name }}</li>
-                </div>  
-        
+                </div>          
         </ul>
         {% endfor %}
     </div>

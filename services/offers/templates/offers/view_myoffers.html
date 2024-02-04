@@ -7,17 +7,17 @@
 </header>
 
 <body>
-    <!--<div class="grid-container">-->
-        
-    <div align=center>
+    <div class="offers-div" align=center>
+        <h5> Utilisateur connecté:{{ user }}</h5>
         <table border="3" Cellspacing="1" Cellpadding="5">
             <thead>  
                 <tr>                        
                     <th scope="col">Mes offres</th>
                 </tr>                                                       
             </thead>
-       
-    <tbody> 
+        </table>
+    </div>      
+<tbody> 
          
             {% for offer in myoffers %} 
             <tr>

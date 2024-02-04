@@ -6,19 +6,16 @@
 
 </header>
 
-<body>
-    
-    <!--<div style="width:100%; text-align:center">-->
+<body>  
+      
     <div class="offers-div" align=center>
-        
-    <!--<table class="table table-bordered">-->
+        <h5> Utilisateur connecté:{{ user }}</h5>
         <table border="3" Cellspacing="1" Cellpadding="5">
             <thead>            
             <tr>                               
                 <th scope="col">Mes demandes</th>                                                               
             </tr>        
-            </thead>
-            
+            </thead>            
     <tbody>  
             {% for offer in myrequests %} 
             <tr>

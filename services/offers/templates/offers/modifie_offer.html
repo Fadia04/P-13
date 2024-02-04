@@ -6,23 +6,21 @@
     <h2>MODIFIEZ VOTRE ANNONCE</h2>
 </header>
 <body>
+    <div class="container m-2">
     <form method="post">
         {{ modifie_form.as_p }}
         {% csrf_token %}
         <button type="submit">Sauvegarder</button>
     </form>
 
-    <hr>
     <h3>Supprimer une annonce</h3>
     
     <form method="post">
         {{ delete_form.as_p }}
-        {% csrf_token %}
-
-         
-        <button type="submit">Supprimer</button>
-        
+        {% csrf_token %}         
+        <button type="submit">Supprimer</button>        
     </form>
+    </div> 
     
 </body>
 {% endblock content %}

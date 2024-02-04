@@ -43,20 +43,19 @@
 </header>
 
 <body>
-    <section class="page-section" id="résultats">            
-        <div class="container py-1 bg-light">
-            <div class="row">
+    
+        <div class="container" align=center>
+            
+                
                 {% for offer in offers %}
                 <ul class='list-group'>
-                <div class="col-md-4 col-sm-6 text-center">
-                    <div class="card-mb-4 shadow-sm">                    
-                    
+                    <div class="post">                                   
                     <a href="{% url 'view_offer' offer.id %}">
                         <h4>{{ offer.title }}</h4>
                     </a>  
-                </ul>                       
-                    </div>                           
-                </div>
+                                      
+        </div>                           
+            
                 {% empty %}
                 {% if query %}
                 <h3>Aucune annonce trouvée avec ce mot clé</h3>
@@ -65,9 +64,8 @@
                 {% endif %}   
                 {% endfor %}
                 
-        
-        </div>  
-    </div>             
+            </ul> 
+              
     </section>
 <body/>
 {% endblock %}

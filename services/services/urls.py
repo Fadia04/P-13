@@ -41,4 +41,5 @@ urlpatterns = [
     path('modifie_comment/<int:comment_id>', offers.views.modifie_comment, name='modifie_comment'),
     path("delete-comment/<int:id>", offers.views.delete_comment, name="delete-comment"),
     path("legal_notices/", offers.views.legal_notices, name="notices"),
+    path('delete_offer/<int:id>', offers.views.delete_offer, name='delete_offer'),
 ]
