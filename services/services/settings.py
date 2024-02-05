@@ -108,8 +108,10 @@ WSGI_APPLICATION = "services.wsgi.application"
 # }
 # database_url = os.environ.get("DATABASE_URL")
 # DATABASES["default"]= dj_database_url.parse(database_url)
+DEBUG = False
+print(f"\nDEBUG {DEBUG}")
 if not DEBUG:
-    print('prod')
+    print('\nPROD')
     DATABASES = {
         "default":
         dj_database_url.parse(env("DATABASE_URL"), conn_max_age=600)
@@ -181,4 +183,3 @@ LOGIN_URL = "signin"
 LOGIN_REDIRECT_URL = "/signin/"
 # fotoblog/settings.py
 AUTH_USER_MODEL = 'users.User'
-

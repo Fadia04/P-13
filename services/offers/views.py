@@ -75,21 +75,24 @@ def modifie_offer(request, offer_id):
     context = {
         "modifie_form": modifie_form,
         "delete_form": delete_form,
-        }
+        "message": message,
+    }
     return render(request, "offers/modifie_offer.html", context=context)
+
 
 @login_required
 def delete_offer(request, id):
     """View to delete a published offer by it's owner"""
     offer = Offer.objects.get(pk=id)
-    
+
     if offer.user == request.user:
         offer.delete()
     else:
         mess = "Vous ne pouvez pas supprimer cette annonce"
-        return render(request, "offers/modifie_offer.html", {"offer":offer,"message": mess})
+        return render(request, "offers/modifie_offer.html", {"offer": offer, "message": mess})
 
     return redirect("home")
+
 
 def view_offer(request, offer_id):
     """View to display view_offer page, with all offer informations,
@@ -152,7 +155,7 @@ def search(request):
 
 @login_required
 def add_comment(request, id):
-    """View allowed to display add-comment page containig a form 
+    """View allowed to display add-comment page containig a form
     allowing the connected user to add his message and to save it and returns view_offer page"""
     offer = Offer.objects.get(id=id)
     form = CommentForm(instance=offer)
@@ -201,7 +204,7 @@ def delete_comment(request, id):
 def view_category(request, category_id):
     """View used to return view_category page witch display all pubishe offers for the category requested"""
     category = get_object_or_404(Category, id=category_id)
-    if category == None:
+    if category is None:
         offers = Offer.objects.order_by("date_added")
     else:
         offers = Offer.objects.filter(category__name=category)
@@ -235,6 +238,7 @@ def modifie_comment(request, comment_id):
 
     context = {
         "modifie_form": modifie_form,
+        "message": message
     }
     return render(request, "offers/modifie_comment.html", context=context)
 

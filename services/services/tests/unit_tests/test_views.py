@@ -99,6 +99,37 @@ def test_create_offer_view_success_is_redirected_to_home_page():
 
 
 @pytest.mark.django_db
+def test_create_request_view_is_valid():
+    client = Client()
+    User.objects.create_user(username="Lamia", password="lili5678")
+    client.login(username="Lamia", password="lili5678")
+    path = reverse("create-request")
+    response = client.get(path)
+    assert response.status_code == 200
+    assertTemplateUsed(response, "offers/create_request.html")
+
+
+@pytest.mark.django_db
+def test_create_request_view_success_is_redirected_to_home_page():
+    client = Client()
+    User.objects.create_user(username="test_user", password="5678")
+    cat = Category.objects.create(name="bricolage")
+
+    client.login(username="test_user", password="5678")
+    data = {"title": "perceuse", "description": "échange une perceuse",
+            "category": cat.id, "available": True, "modifie_offer": True}
+    path = reverse("create-request")
+    response = client.post(path, data, follow=True)
+
+    assertRedirects(
+        response=response,
+        expected_url="/",
+        status_code=302,
+        target_status_code=200,)
+    assertTemplateUsed(response, "offers/home.html")
+
+
+@pytest.mark.django_db
 def test_view_offer_view_is_valid():
     client = Client()
     test_user = User.objects.create_user(username="test_user", password="5678")

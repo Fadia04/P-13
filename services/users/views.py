@@ -13,10 +13,10 @@ def logout_user(request):
 
 
 def login_page(request):
-    """View to display signin page containing a signin form to allow a 
-    registered user to log and return home page. If the username or the 
-    password are not valid, it display a message to allow the user to enter 
-    new username or password
+    """View to display signin page containing a signin form to allow a
+    registered user to log and return home page. If the username or the
+    password are not valid, it display a message to allow the user to
+    enter new username or password
     """
     form = forms.LoginForm()
     message = ""
