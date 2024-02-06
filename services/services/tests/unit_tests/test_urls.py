@@ -1,6 +1,6 @@
 import pytest
 from django.urls import reverse, resolve
-from django.contrib.auth.models import User
+#from django.contrib.auth.models import User
 from offers.models import Offer, Category, Comment
 from users.models import User
 

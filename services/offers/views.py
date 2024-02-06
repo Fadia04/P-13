@@ -59,23 +59,19 @@ def modifie_offer(request, offer_id):
     modifie_form = forms.OfferForm(instance=offer)
     delete_form = forms.DeleteOfferForm()
     if request.method == "POST":
-        if offer.user != request.user:
-            message = ""
-        else:
-            if "modifie_offer" in request.POST:
-                modifie_form = forms.OfferForm(request.POST, instance=offer)
-                if modifie_form.is_valid():
-                    modifie_form.save()
+        if "modifie_offer" in request.POST:
+            modifie_form = forms.OfferForm(request.POST, instance=offer)
+            if modifie_form.is_valid():
+                modifie_form.save()
+                return redirect("home")
+            if "delete_offer" in request.POST:
+                delete_form = forms.DeleteOfferForm(request.POST)
+                if delete_form.is_valid():
+                    offer.delete()
                     return redirect("home")
-                if "delete_offer" in request.POST:
-                    delete_form = forms.DeleteOfferForm(request.POST)
-                    if delete_form.is_valid():
-                        offer.delete()
-                        return redirect("home")
     context = {
         "modifie_form": modifie_form,
         "delete_form": delete_form,
-        "message": message,
     }
     return render(request, "offers/modifie_offer.html", context=context)
 
@@ -109,7 +105,7 @@ def view_offer(request, offer_id):
 def view_offers(request):
     """View dedicated to display view_offers page and display all
     published annoucements according to their type: offer"""
-    offers = Offer.objects.all().filter(type="Offre")
+    offers = Offer.objects.all().filter(type="Offre").order_by("date_added")
     return render(request, "offers/view_offers.html", {"offers": offers})
 
 
@@ -227,18 +223,14 @@ def modifie_comment(request, comment_id):
     modifie_form = forms.CommentForm(instance=comment)
 
     if request.method == "POST":
-        if comment.user != request.user:
-            message = ""
-        else:
-            if "modifie_comment" in request.POST:
-                modifie_form = forms.CommentForm(request.POST, instance=comment)
-                if modifie_form.is_valid():
-                    modifie_form.save()
-                    return redirect("view_offer", offer_id=offer_id)
+        if "modifie_comment" in request.POST:
+            modifie_form = forms.CommentForm(request.POST, instance=comment)
+            if modifie_form.is_valid():
+                modifie_form.save()
+                return redirect("view_offer", offer_id=offer_id)
 
     context = {
         "modifie_form": modifie_form,
-        "message": message
     }
     return render(request, "offers/modifie_comment.html", context=context)
 

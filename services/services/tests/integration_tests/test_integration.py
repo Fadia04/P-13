@@ -1,9 +1,10 @@
 import pytest
 from django.urls import reverse
 from django.test import Client
-from django.contrib.auth.models import User
+#from django.contrib.auth.models import User
 from pytest_django.asserts import assertTemplateUsed
 from offers.models import Offer, Category
+from users.models import User
 from django.contrib import auth
 
 
